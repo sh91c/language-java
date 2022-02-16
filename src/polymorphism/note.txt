@@ -1,0 +1,44 @@
+다형성:
+    '조상타입의 참조변수' 로 '자식타입의 객체' 를 다루는 것
+
+class Tv {
+    boolean power;
+    int channel;
+
+    void power() { power = !power; }
+    void channelUp() { channel++; }
+    void channelDown() { channel-- }
+}
+
+class SmartTv extends Tv {
+    String text;
+    void Caption() { ... }
+}
+
+public class 임시클래스 {
+    public static void main(String[] args) {
+        -> 앞서서 배울 때 참조 변수와 객체 생성 타입이 같았다면,,
+        Tv t = new Tv();    // 타입 일치
+        SmartTv s = new SmartTv();  // 타입일치
+
+        -> 다형성의 '조상의 참조변수 타입' 과 '자손의 인스턴스 타입' 은 서로 불일치하다는 것이다.
+        Tv t2 = new SmartTv();  // Tv와 SmartTv 타입 불일치,, 하지만 가능,, 에러 X
+        -> 상속을 받은 부모-자식관계에서만 가능하다.
+
+        -> 타입의 일치와 불일치의 차이점:
+            * 인스턴스를 중점으로 생각하자.
+            SmartTv s = new SmartTv(); // 일치: 7개의 멤버를 모두 사용가능하다.
+            Tv t = new SmartTv(); // 불일치: 인스턴스에는 7개의 멤버를 가지지만
+                                         참조변수의 조상타입에 따라 5개의 멤버 일부만 사용가능하다.
+
+            (반대의 경우)
+            * 자손 타입의 참조변수로는 조상타입의 인스턴스 객체를 생성할 수 없다.
+            -> 근거: 가지고 있지 않는 멤버를 호출하면 에러가 발생하기 때문.
+            Tv t = new SmartTv(); // 가능.
+            SmartTv s = new Tv(); // 불가능. 에러.
+
+            -> 어떤 장점이 있다는 것일까?
+                -> 2가지의 장점이 있다.
+                    1.
+    }
+}
