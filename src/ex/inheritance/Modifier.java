@@ -1,6 +1,6 @@
 package ex.inheritance;
 
-public class modifier {
+public class Modifier {
     // 제어자 (modifier)
     // 클래스와 클래스의 멤버(멤버 변수 및 멤버 메서드)에 부가적인 의미 부여
     // 접근 제어자: public, protected, (default), private
