@@ -1,0 +1,53 @@
+추상 클래스의 작성
+- 여러 클래스에 공통적으로 사용될 수 있는 추상 클래스를 바로 작성하거나,
+  기존 클래스의 공통 부분을 뽑아서 추상 클래스를 만든다.
+
+[예시: 추상 메서드 개념이 없을 때]
+class Marine {
+    int x, y;
+    void move(int x, int y) { /* 생략 */}
+    void stop() { /* 생략 */}
+    void stimPack() { /* 생략 */}
+}
+
+class Tank {
+    int x, y;
+    void move(int x, int y) { /* 생략 */}
+    void stop() { /* 생략 */}
+    void changeMode() { /* 생략 */}
+}
+
+class DropShip {
+    int x, y;
+    void move(int x, int y) { /* 생략 */}
+    void stop() { /* 생략 */}
+    void load() { /* 생략 */}
+    void unload() { /* 생략 */}
+}
+
+[추상화할 수 있는 부분을 뽑아낸다면]
+abstract class Unit {
+    int x, y;
+    abstract void move(int x, int y);
+    void stop() { /* 현재 위치에서 정지 로직 구현 */ }
+}
+
+-> 마린, 탱크, 드랍쉽에 Unit 클래스를 상속받고
+   인스턴스 변수 x,y와 move()메서드, stop() 메서드는 추상화되어 작성하지 않아도 된다.
+
+[추상화를 진행했다면]
+Unit[] group = new Unit[3];     // 부모 타입 Unit 의 크기가 3인 배열로 선언하고
+group[0] = new Marine();        // 자손들의 객체를 생성해
+group[1] = new Tank();          // 각 인덱스에 할당할 수 있다.
+group[2] = new DropShip();
+
+[사용 예]
+group[i].move(x, y); -> group 인덱스 i번이 가리키는 객체의 move(x, y) 메서드 동작
+
+[!! 주의 !!]
+Object[] group = new Object[3];
+group[0] = new Marine();                // 다형성 가능하다.
+for (int i = 0; i < group.length; i++) {
+    group[i].move(100, 200);            // 에러!
+                                        // Object 클래스에 move() 메서드가 정의되어 있지 않음.
+}
