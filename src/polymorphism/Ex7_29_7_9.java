@@ -80,11 +80,11 @@ class Buyer2 {
         String itemList = "";
 
         for (int i = 0; i < cart.length; i++) {
-            if(cart[i] == null) break;
+            if (cart[i] == null) break;
             sum += cart[i].price;
             itemList += cart[i] + ", ";
         }
-        System.out.println("구입한 물건의 총 금액은 " + sum +"입니다.");
+        System.out.println("구입한 물건의 총 금액은 " + sum + "입니다.");
         System.out.println("구입하신 제품은 " + itemList + "입니다.");
     }
 }
