@@ -3,8 +3,8 @@ package polymorphism;
 public class Ex7_27_7_8 {
     public static void main(String[] args) {
         Buyer b = new Buyer();
-        b.buy(new Tv());
-        b.buy(new Computer());
+        b.buy(new Tv()); // 다형적 매개변수 활용
+        b.buy(new Computer()); // 다형적 매개변수 활용
 
         System.out.println("현재 남은 잔액은 " + b.money + "입니다.");
         System.out.println("현재 보너스 포인트는 " + b.bonusPoint + "입니다.");

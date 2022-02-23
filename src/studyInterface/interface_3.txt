@@ -1,0 +1,70 @@
+[인터페이스의 장점]
+- 두 대상(객체) 간의 '연결, 대화, 소통'을 돕는 '중간 역할'을 한다.
+- 선언(설계)와 구현을 분리시킬 수 있다.
+    ㄴ 아래 클래스를 분리시켜보는 예시 코드
+
+class B {
+    public void method() {
+        System.out.println("method in B");
+    }
+}
+분리한다면, 아래와 같다.
+interface I {
+    void method(); // 1. 선언부만 떼어내기.
+}
+
+class B implements I {
+    public void method() {
+        System.out.println("method in B"); // 2. 구현부 작성하기.
+    }
+}
+(인터페이스를 사용하지 않을 때)
+A 클래스가 B 클래스에 의존하고 있다가 C 클래스로 의존해야할 때, A 클래스 내부도 어떤 변경을 해줘야함. !강한 결합!
+
+(인터페이스를 사용했을 때)
+A 클래스가 I 인터페이스(껍데기)와 !느슨한 결합!을 통해서 B 클래스에 구현부가 작성이 되었고, 추후 B 클래스가 아닌
+C 또는 D 등 다르게 구현된 클래스(알맹이)로 바뀌어도, A 클래스의 코드는 변경할 필요가 없다..! 변경에 유리하다.
+
+[의존적인 관계.. 강한 결합 관계의 두 클래스 A-B 예시]
+class A {
+    public void methodA(B b) {
+        b.methodB();  // B 클래스의 메서드 호출
+    }
+}
+
+class B {
+    public void methodB() {
+        System.out.println("methodB()");
+    }
+}
+
+class InterfaceTest {
+    public static void main(String[] args) {
+        A a = new A ();
+        a.methodA(new B());
+    }
+}
+
+[느슨한 결합 관계의 두 클래스 A-I-B]: 인터페이스를 추가하고 위의 B 클래스를 아래처럼 바꾼 예
+interface I {
+    void methodB();
+}
+
+class A {
+    public void methodA(I i){  // B 타입의 참조변수를 매개변수로 했는데, I i 로 변경. (느슨)
+        i.methodB();    // 어떤 타입의 참조변수를 받아도 인터페이스이기 때문에 유연해짐.
+    }
+} 결론적으로 인터페이스하고만 관계가 맺어짐, B 클래스에 직접적이지 않음
+
+class B implements I {
+    public void methodB(){
+        System.out.println("methodB()");
+    }
+}
+
+추가로 C 클래스로 바꾼다면
+class C implements I {
+    public void methodB() {
+        System.out.println("methodB() in C");
+    }
+}

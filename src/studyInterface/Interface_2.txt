@@ -1,0 +1,47 @@
+[인터페이스를 이용한 다형성]
+interface Fightable {
+    void move(int x, int y);
+    void attack(Fightable f); // 매개변수 타입이 인터페이스임
+                                 의미: Fightable 인터페이스를 구현한 클래스의
+                                      인스턴스만 전달 가능하다는 뜻.
+                                      !!! 매우 중요함 !!!
+}
+
+class Fighter extends Unit implements Fightable {
+    public void move(int x, int y) { /* skip */ }
+    public void attack(Fightable f) { /* skip */ }
+}
+-> Unit 클래스에 구현된 attack() 메서드가 있고 Fightable 인터페이스에 attack() 추상 메서드가 있다고
+   예시를 들어보자. Fighter 클래스는 Unit 클래스를 상속받았고, Fighter 클래스는 Fightable 인터페이스를
+   구현한다.
+   각 클래스와 인터페이스를 상속, 구현받았기 때문에 다중상속 이라고 생각할 수 있겠으나..
+   attack() 메서드는 선언부만 같지 구현부는 충돌이 나지 않기 때문에 문제가 없다.
+   그래서, Fighter 클래스에서 attack() 메서드를 호출한다면 Unit 클래스의 구현된 attack()를 바탕으로
+   호출될 것이다.
+
+[다형성]
+Unit u = new Fighter();
+Fightable f = new Fighter(); // 다형성 OK.
+                                대신, Fightable 인터페이스에 정의(선언)된 메서드만 사용가능.
+*간단 리마인드: 다형성은 멤버 개수를 타입에 따라 조절(부모자식관계일때)
+f.move(100, 200);
+f.attack(new Fighter());
+
+[인터페이스를 메서드의 리턴타입으로 지정할 수 있다.]
+아래 코드는 Fightable 인터페이스를 구현한 클래스의 인스턴스를 반환한다는 것이다.
+Fightable methodName() {
+    ...
+    Fighter f = new Fighter();
+    return f;
+    -> 위 두 문장은 한 문장으로 이렇게 표현할 수 있다.
+    return new Fighter();
+}
+반환되는 것은 구현된 Fighter 클래스의 인스턴스..! 그래서 인터페이스도 다형성이 가능하다!
+Fightable f = new Fighter(); // 쌉가능.
+
+-------------------------------------------------------------------------------------
+위 정리.
+메서드의 반환타입이 인터페이스다
+    ㄴ 해당 인터페이스를 구현한 클래스의 인스턴스를 반환한다.
+        ㄴ 그리고 이 메서드를 호출한 쪽에서는 메서드와 같은 타입이거나 형변환이 가능한 타입으로 선언
+           되어있어야 한다.
