@@ -1,6 +1,6 @@
-package abstractClass;
+package studyInterface;
 
-public class Abc_3 {
+public class Interface_1 {
     public static void main(String[] args) {
 
     }

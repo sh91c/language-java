@@ -1,0 +1,31 @@
+[인터페이스]
+*결론-핵심:
+    1. 추상 메서드의 집합 (프로그래밍 관점)
+    2. 구현된 것이 전혀 없는 설계도. 모든 멤버가 public.
+    기타. static method, 상수, default method 도 포함되지만 부수적인 것.
+    * 프로그래밍 관점에서 추상 메서드의 집합 개념이 제일 중요하다.
+
+[추상 클래스와 인터페이스와의 차이점]
+1. 추상 메서드: 일반 클래스인데 추상 메서드를 가지고 있는 것.
+2. 인터페이스: 추상 메서드만 가지고 있는 것. 그 외에는 가질 수 없다.
+3. 대략적으로 큰 차이는 생성자나 멤버변수(iv, cv)를 가질 수 없다는 것이다.
+
+[인터페이스 작성 예문]
+interface 인터페이스이름 {
+    public static final 타입 상수이름 = 값;    // 상수
+                                            // 변수는 가질 수 없다.
+    public abstract 메서드이름(매개변수목록);   // 추상 메서드(핵심)
+}
+
+[인터페이스를 정의 예문]
+interface PlayingCard {
+    public static final int SPADE = 4;
+    final int DIAMOND = 3;  // public 생략 가능.
+    static int HEART = 2;   // final 생략 가능.
+    int CLOVER = 1;         // static 생략 가능.
+    -> 인터페이스 내 상수는 항상 public 이자 static 이고 final 이다.
+
+    public abstract String getCardNumber();
+    String getCardKind();   // public 및 abstract 생략 가능.
+    -> 인터페이스의 메서드는 항상 public 이고, abstract 이다.
+}

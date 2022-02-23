@@ -1,0 +1,36 @@
+추상 클래스의 작성
+- 추상화를 단계별로 작성할 수도 있다.
+- 추상화 <-> 구체화
+- 추상화된 코드는 구체화된 코드보다 유연하다. 변경에 유리하다.
+
+GregorianCalendar gCal = new GregorianCalendar(); // 구체척
+-> 어떤 클래스를 사용할지, 어떤 타입으로 참조 변수를 선언할지 명확하다.
+
+Calendar cal = Calendar.getInstance(); // 추상적
+-> Calendar.getInstance() 는 Calendar의 자손객체를 반환하는데, 무엇을 반환할지
+   불분명하다.
+
+// Calendar 타입의 static getInstance 메서드(public static)
+public static Calendar getInstance(Locale aLocale) {
+    return createCalendar(TimeZone.getDefault(), aLocale);
+}
+
+// Calendar 타입의 createCalendar 메서드(private static)
+private static Calendar createCalendar(TimeZone zone, Locale aLocale) {
+    // ...
+    if (calType != null) {
+        switch (calType) {
+            case "buddhist":
+                cal = new BuddhistCalendar(zone, aLocale);
+                break;
+
+            case "japanese":
+                cal = new JapaneseImperialCalendar(zone, aLocale);
+                break;
+
+            case "gregory":
+                cal = new GregorianCalendar(zone, aLocale);
+                break;
+        }
+    }
+}

@@ -51,5 +51,7 @@ public class TimeTest {
         System.out.println("setHour(100)");
         t.setHour(100);
         System.out.println(t.getHour());
+        
+        // 이렇게 메서드를 호출하여 iv의 값에 접근하거나 활용하는 개념이 캡슐화(은닉화).
     }
 }
