@@ -1,0 +1,26 @@
+[default method 와 static method]
+- JDK1.8부터 인터페이스에 default method, static method 추가 가능
+- 인터페이스에 새로운 추상 메서드를 추가하기 어려움
+    ㄴ 새로운 추상 메서드가 선언된다면, 이를 구현했던 수많은 클래스에서 새로운
+       추상 메서드를 모두가 구현해야하기 때문임.
+       그래서 해결책으로 default method 가 추가되었다.
+- 그런데,, default method 는 인스턴스 메서드이다.(인터페이스 규칙을 위반한다..!)
+
+interface ExInterface {
+    void method();
+    void newMethod(); // 1. newMethod()가 새롭게 추가된 추상 메서드라면..
+}
+->
+interface ExInterface {
+    void method()
+    default void newMethod() {} // 2. 이처럼 구현 (예외 사항이 생긴 것임.)
+}
+
+- default method 를 통해 기존의 메서드와 충돌할 여지가 생겼고, 해결책이 있다.
+    - '여러 인터페이스'의 디폴트 메서드 간의 충돌시:
+        인터페이스를 구현한 클래스에서 default method 를 Override 해야한다.
+
+    - 'default method 와 조상 클래스'의 메서드간의 충돌시:
+        조상 클래스의 메서드가 상속되고(우선권), default method 는 무시된다.
+
+    - 그냥 직접 Override 하는 것이 제일 마음 편함.
