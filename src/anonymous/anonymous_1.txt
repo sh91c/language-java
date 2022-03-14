@@ -1,0 +1,40 @@
+[익명 클래스]
+- 이름이 없는 일회용 클래스. 클래스 정의와 객체 생성을 동시에 진행.
+
+new 조상클래스이름() {
+    // 멤버 선언
+}
+
+또는
+
+new 구현인터페이스이름() {
+    // 멤버 선언
+}
+
+class Ex7_17 {
+    Object iv = new Object() {        // 익명클래스
+        void method() {
+            // ...;
+        }
+    };
+
+    static Object cv = new Object() {   // 익명클래스
+        void method() {
+            // ...;
+        }
+    };
+
+    void method() {
+        Object lv = new Object() {      // 익명클래스스
+           void method() {
+                // ...;
+            }
+        };
+    }
+}
+
+-> 생성된 클래스 파일은
+Ex7_17.class
+Ex7_17$1.class
+Ex7_17$2.class
+Ex7_17$3.class <- 1, 2, 3 모두 익명클래스이기 때문
