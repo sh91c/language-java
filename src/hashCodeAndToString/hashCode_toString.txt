@@ -1,0 +1,35 @@
+챕터 9 [hashCode(), toString()]
+
+[hashCode()]
+- 객체의 해시코드(hash code)를 반환하는 메서드
+- 해시코드는 정수값, 해싱 알고리즘에 사용 - 컬렉션 프레임워크에서 다룸
+- Object 클래스의 hashCode()는 객체의 주소를 int로 변환해서 치환
+
+public class Object {
+    public native int hashCode();
+    // native 메서드: OS가 가지고 있는 메서드, 주로 C로 작성되어있음
+    // 구현부가 없는 이유: 이미 작성되어있는 OS 단의 메서드를 사용하는 것
+    // JNI: 자바가 아닌 언어와 서로 호출할 수 있는 도구?
+}
+
+*** 중요 ***
+- equals()를 참조주소값에서 iv를 활용하도록 오버라이딩 했다면,
+  hashCode()도 iv를 활용하도록 오버라이딩해야한다.
+  둘의 공통점은 객체의 주소를 가지고 작업을 하기 때문.
+  ** (매우 중요) equals()의 결과가 true인 두 객체의 해시코드는 같아야 하기 떄문 **
+String str1 = new String("abc");
+String str2 = new String("abc");
+System.out.println(str1.equals(str2)); // true
+System.out.println(str1.hashCode());   // 96354
+System.out.println(str2.hashCode());   // 96354
+
+- System.identityHashCode(Object obj)는 객체마다 다른 해시코드를 반환한다.
+  hashCode()를 오버라이딩해도 본래의 객체마다 다른 hashCode 값을 반환하는 메서드임.
+  Object 클래스의 hashCode()와 동일하다
+
+===
+[toString()]
+- 객체를 문자열(String)로 변환하기 위한 메서드
+public String toString() { // Object 의 toString()
+    return getClass().getName()+"@"+Integer.toHexString(hashCode());
+}

@@ -1,0 +1,52 @@
+[Object 클래스 equals()]
+- Object 클래스: 모든 클래스의 최고 조상, 오직 11개의 메서드만 가지고 있다.
+- void notify(), notifyAll(), wait(), wait(long timeout), wait(long timeout, int nanos)는
+  쓰레드와 관련된 메서드.
+- boolean equals(Object obj): 객체 자신과 객체 obj가 같은 객체인지 판별.(같으면 true)
+- String toString(): 객체 자신의 정보를 문자열로 반환. (파이썬 __str__)
+- protected void finalize(): 객체가 소멸될 때, GC에 의해 자동적으로 호출. 이 때 수행되어야하는 코드가
+  있을 때는 오버라이딩한다. (사용하지 않는 것을 권장?한다고함)
+- Class getClass(): 객체 자신의 클래스 정보를 담고 있는 Class 인스턴스를 반환한다.
+  반환된 클래스의 객체를 통해 객체를 생성할 수 있고, 객체에 대한 정보를 파악할 수 있다.
+  이러한 것을 Reflection API 라고 함. 기본 API. 관련 클래스를 활용하면 할 수 있는 일이 많아진다.
+  실행중(런타임??)에 객체를 생성한다던지, 객체의 정보로 할 수 있는 일이 많아짐.(무슨 느낌인지 감은 오는데)
+- int hashCode(): 객체 자신의 해시코드를 반환한다.
+- protected Object clone(): 객체 자신의 복사본을 반환한다.
+
+* 위 protected 외에는 public 접근제어자를 가짐
+  오버라이딩을 통해 public으로 변경해서 사용해야한다!!
+
+===
+
+boolean equals(Object obj)
+- 객체 자신(this)과 주어진 객체(obj)를 비교한다. 같으면 t, 다르면 f.
+- Object 클래스의 equals() 는 객체의 주소를 비교한다.(참조변수의 값 비교)
+public boolean equals(Object obj) {
+    return (this == obj); // 주소 비교
+}
+
+ex 1]
+class Value {
+    int value;
+
+    Value(int value) {
+        this.value = value;
+    }
+}
+
+class test {
+    public static void main(String[] args) {
+        Value v1 = new Value(10);
+        Value v2 = new Value(10);
+
+        System.out.println(v1.equals(v2)); // 서로 다른 두 객체는 항상 주소가 다르다. false.
+        // iv 값을 가지고 판별하기 위해선 오버라이딩이 필요하다.
+    }
+} ==> 실습 코드 확인.
+
+* 결론
+equals(Object obj)의 오버라이딩
+- 인스턴스 변수(iv)의 값을 비교하도록, equals()를 재정의해야한다.
+  - instanceof
+  - type casting
+  - compare
