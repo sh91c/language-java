@@ -7,6 +7,8 @@ public class ex1 {
 
         System.out.println(v1);
         System.out.println(v2);
+        System.out.println(v1.value);
+        System.out.println(v2.value);
         System.out.println(v1.equals(v2));
     }
 }

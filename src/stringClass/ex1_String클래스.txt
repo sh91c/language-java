@@ -1,0 +1,42 @@
+[String 클래스]
+- 문자열을 다루기 위한 클래스
+- String 클래스 = 데이터(char[]) + 문자열을 다루는데 필요한 메서드
+- 특징: 내용을 변경할 수 없는 불변(immutable) 클래스
+
+String a = "a";
+String b = "b";
+a = a + b; <- 문자열 결합 후 "ab"는 새로운 객체로 만들어져서 재할당되는 것이기
+때문에 성능이 떨어진다.
+
+문자열의 결합이나 변경이 잦다면, 내용이 변경 가능한 StringBuffer 클래스를 사용.
+
+[문자열의 비교]
+String str = "abc"; 와 String str = new String("abc"); 의 비교
+
+String str1 = "abc";
+String str2 = "abc";
+-> "abc"의 주소가 str1과 str2에 저장되어 실제 같은 주소를 바라보게됨.
+str1 == str2 ? True
+
+String str3 = new String("abc");
+String str4 = new String("abc");
+str3과 str4는 새로운 String 인스턴스를 생성했기 때문에 서로 다른 주소값을 가짐.
+각각의 문자열을 가리킴.
+str3 == str4 ? False
+
+* String 클래스는 불변이기 때문에 굳이 같은 문자열을 새로운 객체로 만들어서 다룰
+필요는 없다.
+
+[문자열 리터럴]
+- 문자열 리터럴은 프로그램 실행시 자동으로 생성된다.
+- constant pool(상수 풀)에 저장.
+- 같은 내용의 문자열 리터럴은 하나만 만들어진다.
+
+[빈 문자열("", empty string)]
+- 내용이 없는 문자열.
+- 길이가 0인 char형 배열을 저장하는 문자열
+String str = ""; // str을 빈 문자열로 초기화
+- 길이가 0인 배열을 생성하는 것은 어느 타입이나 가능
+* 추천 초기화
+String s = "";
+char c = ' ';
