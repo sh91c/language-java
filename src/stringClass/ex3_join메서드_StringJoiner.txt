@@ -1,0 +1,9 @@
+[join() - StringJoiner]
+String animals = "dog,cat,bear";
+String arr[] = animals.split(',');
+String str = String.join("-", arr);
+str -> "dog-cat-bear"
+
+파이썬 join 과 같음
+
+
