@@ -1,0 +1,61 @@
+[제네릭의 와일드 카드 <?>]
+- 하나의 참조 변수로 대입된 타입이 다른 객체를 참조 가능
+    ArrayList<? extends Product> tvList = new ArrayList<Tv>();  // 가능
+    ArrayList<? extends Product> audioList = new ArrayList<Audio>();  // 가능
+
+    ArrayList<Product> productList = new ArrayList<Tv>(); // error. 제네릭 타입 불일치
+
+    ----
+    <? extends T>   와일드 카드의 상한 제한. T와 그 자손들만 대입 가능
+    <? super T>     와일드 카드의 하한 제한. T와 그 조상들만 대입 가능
+    <?>             제한이 없음. 모든 타입이 가능. <? extends Object>와 동일
+
+- 메서드의 매개변수에 와일드 카드를 사용이 가능하다.
+    static Juice makeJuice(FruitBox<? extends Fruit> box) {
+        String tmp = "";
+        for (Fruit f : box.getList()) {
+            tmp += f + " ";
+        }
+        return tmp;
+    }
+
+    sout(Juicer.makeJuice(new FruitBox<Fruit>()));
+    sout(Juicer.makeJuice(new FruitBox<Apple>()));
+
+[제네릭 메서드]
+- 제네릭 타입이 선언된 메서드(타입 변수는 메서드 내에서만 유효)
+    static <T> void sort(List<T> list, Comparator<? super T> c)
+    - 클래스의 타입 매개변수<T>와 메서드의 타입 매개변수 <T>는 별개
+        class FruitBox<T> {
+            ...
+            static <T> void sort(List<T> list, Comparator<? super T> c) {
+                ...
+            }
+        } -> 클래스의 T와 메서드의 T 문자는 일치하지만, 실질적으로 다른 타입 변수로 봐야한다.
+          -> 예를 들어 클래스에서 지정된 타입변수 T는 String이고, 해당 클래스의 멤버 메서드의
+          지정된 타입변수는 Integer가 될 수 있다!
+
+- 메서드를 호출할 때마다 타입을 대입한다. (대부분 생략 가능)
+    FruitBox<Fruit> fruitBox = new FruitBox<Fruit>();
+    FruitBox<Apple> appleBox = new FruitBox<Apple>();
+    ...
+    sout(Juicer.<Fruit>makeJuice(fruitBox));
+    sout(Juicer.<Apple>makeJuice(AppleBox));
+    -> 메서드 호출시 <type>을 매번 대입해야한다. (대부분 생략이 가능)
+
+    - 위처럼 타입을 생략하지 않을 때 클래스 이름도 함께 생략할 수 없다.
+    sout(<Fruit>makeJuice(fruitBox)); // error.
+    sout(this.<Fruit>makeJuice(fruitBox)); // ok.
+    sout(Juicer.<Fruit>makeJuice(fruitBox)); // ok.
+
+"""<T extends MyType>와 <? extends MyType>은 서로 사용도가 다르다."""
+    와일드 카드는 하나의 참조변수로 서로 다른 타입이 대입된 여러 제네릭 객체를
+    다루기 위함이다.
+    제네릭 메서드는 메서드를 호출할 때마다 다른 제네릭 타입을 대입할 수 있도록
+    하기 위함이다.
+    와일드 카드를 사용할 수 없을 때 제네릭 메서드를 사용함.
+
+""" 와일드 카드로 선언된 제네릭 타입에 대해서는 형변환이 가능하다. """
+
+
+

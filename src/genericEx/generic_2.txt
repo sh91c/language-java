@@ -1,0 +1,39 @@
+[제네릭 타입 제한: 제한된 제네릭 클래스]
+- extends 로 대입할 수 있는 타입을 제한할 수 있다.
+    class FruitBox<T extend Fruit> {    // Fruit 의 자손만 타입으로 지정가능
+        ArrayList<T> list = new ArrayList<>();
+        ...
+    }
+
+    FruitBox<Apple> appleBox = new FruitBox<Apple>(); // 가능
+    FruitBox<Toy> toyBox = new FruitBox<Toy>();       // 에러. 불가능. Toy는 FruitBox의 자손이 아님
+
+- 특이하게 타입 상속의 부모가 인터페이스인 경우에도 extends 를 사용한다.
+    interface Eatable {}
+    class FruitBox<T extends Eatable> { ... }
+
+    class FruitBox<T extends Fruit & Eatable> {}
+    -> 제네릭 타입에 인터페이스를 함께 작성할 경우 ,(콤마)가 아니라 &로 작성해야한다.
+
+[제네릭스 제약]
+- 타입 변수에 대입은 """인스턴스 별"""로 다르게 가능
+    Box<Apple> appleBox = new Box<Apple>(); // OK. Apple 객체만 가능
+    Box<Grape> grapeBox = new Box<Grape>(); // OK. Grape 객체만 가능
+
+    - 그렇기때문에 static 멤버에 타입 변수를 지정할 수 없다.
+    class Box<T> {
+        static T item; // error.
+        static int compare(T t1, T t2) { ... } // error.
+    }
+
+- 배열을 생성 시 타입 변수는 사용이 불가능하다. 타입 변수로 배열 선언은 가능하다.
+    class Box<T> {
+        T[] itemArr; // OK. T 타입의 배열을 위한 참조변수
+        T[] toArray() {
+            T[] tmpArr = new T[itemArr.length]; // 에러. 제네릭 배열 생성불가.
+        }
+        -> 선언은 가능하지만, 사용은 불가능하다. 그럼 쓸 일이 있을까?
+        -> new T 일때 어떤 타입이 올지 모르기 때문이라고 한다.
+     }
+
+[제네릭 타입의 제거]
